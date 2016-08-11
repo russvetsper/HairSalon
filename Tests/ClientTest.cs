@@ -1,40 +1,45 @@
+using Xunit;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace HairSalon
 {
-  public class Client
+  public class ClientTest : IDisposable
   {
-    private int _id;
-    private string _name;
-    private int _stylistId;
-
-    public Client(string Name, int StylistId, int Id = 0)
+    public ClientTest()
     {
-      _id = Id;
-      _name = Name;
-      _stylistId = StylistId;
+      DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=hair_salon_test;Integrated Security=SSPI;";
     }
 
-    public int GetId()
+    [Fact]
+    public void Test1_EmptyDatabase()
     {
-      return _id;
-    }
-    public string GetName()
-    {
-      return _name;
-    }
-    public void SetName(string newName)
-    {
-      _name = newName;
+      //Arrange, Act
+      int result = Client.GetAll().Count;
+
+      //Assert
+      Assert.Equal(0, result);
     }
 
-    public int GetStylistId()
-     {
-       return _stylistId;
-     }
-     public void SetStylistId(int newStylistId)
-     {
-       _stylistId = newStylistId;
-     }
+    [Fact]
+    public void Test2_SameName()
+    {
+      //Arrange, Act
+      Client firstClient = new Client("Mike", 1);
+      Client secondClient = new Client("Mike", 1);
+
+      //Assert
+      Assert.Equal(firstClient, secondClient);
+    }
+
+    
+
+    public void Dispose()
+    {
+      Client.DeleteAll();
+      Stylist.DeleteAll();
+    }
+  }
+}
