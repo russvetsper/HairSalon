@@ -1,0 +1,10 @@
+<h1>HairSalon</h1>
+<hr WIDTH="100%">
+<h2>Delete?</h2>
+<hr WIDTH="60%">
+<h4>@Model.GetName()</h4>
+<form action="/stylist/delete/@Model.GetId()" method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <button type="submit">Delete</button>
+</form>
+<p><a href="/">Back home</a></p>

@@ -1,0 +1,19 @@
+<h1>Client for this Stylist.</h1>
+<hr WIDTH="100%">
+  @if (@Model["clients"].Count == 0)
+  {
+    <p>No Clients Added</p>
+    <hr WIDTH="100%">
+
+  }
+  else
+  {
+    <ol>
+      @foreach (var client in @Model["clients"])
+      {
+        <li>@client.GetName()</li>
+      }
+    </ol>
+  }
+  <p><a href="/clients/new">Add Client</a></p>
+  <p><a href="/">Home</a>
