@@ -24,7 +24,7 @@ namespace HairSalon
   }
 
   [Fact]
-  public void Test3_Save()
+  public void Test2_Save()
   {
     //Arrange
     Stylist testStylist = new Stylist("Russ");
@@ -39,6 +39,31 @@ namespace HairSalon
     //Assert
     Assert.Equal(testId, result);
   }
+
+  public void Test3_SameName()
+    {
+      //Arrange, Act
+      Stylist firstStylist = new Stylist("Russ");
+      Stylist secondStylist = new Stylist("Russ");
+
+      //Assert
+      Assert.Equal(firstStylist, secondStylist);
+    }
+
+    [Fact]
+  public void Test4_FindStylist()
+  {
+    //Arrange
+    Stylist testStylist = new Stylist("Russ");
+    testStylist.Save();
+
+    //Act
+    Stylist foundStylist = Stylist.Find(testStylist.GetId());
+
+    //Assert
+    Assert.Equal(testStylist, foundStylist);
+  }
+
 
 
 
